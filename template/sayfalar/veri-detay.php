@@ -190,8 +190,53 @@ PageData::set(
 );
 
 $vurgulama_yazi = $paket_veri[0]['data']['ortak_alanlar']['vurgulama_yazi'] ?? false;
-?>
 
+// Schema.org TouristTrip yapılandırılmış veri
+$ortak_alanlar = $paket_veri[0]['data']['ortak_alanlar'];
+$para_birimi_kod = ($ortak_alanlar['para_birimi'] ?? '') === '$' ? 'USD' : (($ortak_alanlar['para_birimi'] ?? '') === '€' ? 'EUR' : 'TRY');
+
+$schema_tur = [
+    '@context' => 'https://schema.org',
+    '@type' => 'TouristTrip',
+    'name' => $paket_baslik,
+    'description' => $paket_meta_aciklama,
+    'url' => $tam_url,
+    'image' => $sirket_url . $paket_resim_yolu,
+    'touristType' => 'Umre Yolcusu',
+    'itinerary' => [
+        '@type' => 'ItemList',
+        'itemListElement' => [
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => 'Gidiş: ' . ($ortak_alanlar['tur_baslangic_tarihi'] ?? '')
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => 'Dönüş: ' . ($ortak_alanlar['tur_bitis_tarihi'] ?? '')
+            ]
+        ]
+    ],
+    'offers' => [
+        '@type' => 'AggregateOffer',
+        'lowPrice' => $ortak_alanlar['dorlu_oda_fiyatı'] ?? $ortak_alanlar['uclu_oda_fiyatı'] ?? '',
+        'highPrice' => $ortak_alanlar['tekli_oda_fiyatı'] ?? $ortak_alanlar['ikili_oda_fiyatı'] ?? '',
+        'priceCurrency' => $para_birimi_kod,
+        'availability' => ($ortak_alanlar['tukendi'] ?? false) ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+        'validFrom' => date('Y-m-d'),
+        'offerCount' => 4
+    ],
+    'provider' => [
+        '@type' => 'TravelAgency',
+        'name' => $sirket_adi ?? 'Yakut Turizm',
+        'url' => $sirket_url
+    ]
+];
+?>
+<script type="application/ld+json">
+<?php echo json_encode($schema_tur, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
+</script>
 
 <div class="innerHeading">
   <div class="container" style="position: relative;">

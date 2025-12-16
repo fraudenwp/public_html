@@ -37,7 +37,16 @@
 <link rel="stylesheet" href="<?php echo $baseurl_onyuz; ?>template/assets/css/lightslider.css"/>
 <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
 
-<link rel="canonical" href="https://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
+<?php
+// Canonical URL - query string olmadan temiz URL
+$canonical_url = 'https://' . $_SERVER['HTTP_HOST'] . strtok($_SERVER['REQUEST_URI'], '?');
+// Sondaki slash'ı düzenle
+$canonical_url = rtrim($canonical_url, '/');
+if ($canonical_url === 'https://' . $_SERVER['HTTP_HOST']) {
+    $canonical_url .= '/';
+}
+?>
+<link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>" />
 
 
 <!-- Google Tag Manager -->

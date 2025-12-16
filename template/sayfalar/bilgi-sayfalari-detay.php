@@ -363,8 +363,29 @@ $sayfaData_aciklama = $output_html;
 
 echo $sayfaData_aciklama;
 ?>
+
+<!-- SEO Internal Link - Umre Turları -->
+<div class="umre-turlari-cta" style="background: linear-gradient(135deg, #1a5f2a 0%, #2d8a3e 100%); padding: 25px; border-radius: 10px; margin-top: 30px; text-align: center;">
+    <h3 style="color: #fff; margin-bottom: 15px; font-size: 22px;">
+        <i class="fas fa-kaaba" style="margin-right: 10px;"></i>2025 - 2026 Umre Turları
+    </h3>
+    <p style="color: #fff; margin-bottom: 20px; font-size: 16px;">
+        En uygun <strong>umre turları</strong> fiyatları ve özel umre paketleri için hemen inceleyin.
+        Ekonomik umre turları, 4-5 yıldızlı otel seçenekleri ve tecrübeli rehberlerimizle unutulmaz bir umre deneyimi yaşayın.
+    </p>
+    <a href="<?php echo $sirket_url; ?>/turlar/umre-turlari"
+       style="display: inline-block; background: #ffb900; color: #000; padding: 12px 30px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 18px; transition: all 0.3s;">
+        <i class="fas fa-arrow-right" style="margin-right: 8px;"></i>Umre Turlarını İncele
+    </a>
+    <p style="color: #ddd; margin-top: 15px; font-size: 14px;">
+        <i class="fas fa-phone-alt" style="margin-right: 5px;"></i>Detaylı bilgi için:
+        <a href="tel:+902125243435" style="color: #ffb900; text-decoration: none;">Hemen Arayın</a>
+    </p>
+</div>
+<!-- /SEO Internal Link -->
+
     </div>
-	
+
 	<?php if($iletisim_bilgileri_gizle == 1){ ?>
 		<div class="property_box wow fadeInUp" style="visibility: visible; animation-name: fadeInUp; margin-top: 30px;">
 		
@@ -505,6 +526,14 @@ echo $sayfaData_aciklama;
       </div>
 		<div class="col-lg-4">
 
+			<!-- Umre Turları Sidebar CTA -->
+			<div class="single-widgets fadeInRight wow" style="margin: 0px 0 40px; background: linear-gradient(135deg, #1a5f2a 0%, #2d8a3e 100%); border-radius: 10px; padding: 20px;">
+				<h4 style="color: #ffb900; margin-bottom: 15px;"><i class="fas fa-kaaba"></i> Umre Turları 2025</h4>
+				<p style="color: #fff; font-size: 14px; margin-bottom: 15px;">En uygun umre turu fiyatları için tıklayın!</p>
+				<a href="<?php echo $sirket_url; ?>/turlar/umre-turlari" class="btn btn-block" style="background: #ffb900; color: #000; font-weight: bold; padding: 10px;">
+					Umre Turlarını Gör <i class="fas fa-arrow-right"></i>
+				</a>
+			</div>
 
 			<div class="single-widgets widget_category fadeInRight wow" style="margin: 0px 0 40px;">
 				<h4>Bilgi Sayfaları</h4>

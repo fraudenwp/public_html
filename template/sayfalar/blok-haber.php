@@ -175,8 +175,16 @@ try {
   
   </div>
    <div class="col-lg-4">
-   
-   
+
+			<!-- Umre Turları Sidebar CTA -->
+			<div class="single-widgets fadeInUp wow" style="margin: 0px 0 40px; background: linear-gradient(135deg, #1a5f2a 0%, #2d8a3e 100%); border-radius: 10px; padding: 20px;">
+				<h4 style="color: #ffb900; margin-bottom: 15px;"><i class="fas fa-kaaba"></i> Umre Turları 2025</h4>
+				<p style="color: #fff; font-size: 14px; margin-bottom: 15px;">En uygun umre turu fiyatları için hemen inceleyin!</p>
+				<a href="<?php echo $sirket_url; ?>/turlar/umre-turlari" class="btn btn-block" style="background: #ffb900; color: #000; font-weight: bold; padding: 10px;">
+					Umre Turlarını Gör <i class="fas fa-arrow-right"></i>
+				</a>
+			</div>
+
     		<div class="single-widgets widget_category fadeInUp wow" style="margin: 0px 0 40px;">
           <h4>Öne Çıkan Turlar</h4>
           <ul class="property_sec">

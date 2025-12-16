@@ -416,12 +416,52 @@ PageData::set(
     ]
 );
 
+// Schema.org CollectionPage yapılandırılmış veri
+$schema_items = [];
+foreach ($paketler as $paket) {
+    $veri = json_decode($paket['veri'], true)[0]['data'];
+    $baslik = $veri['diller'][$user_dil]['baslik'] ?? '';
+    $link = $veri['diller'][$user_dil]['link'] ?? '';
+    $resim = $veri['resimler'][0]['dosya_adi'] ?? '';
+    $ortak = $veri['ortak_alanlar'];
+    $id = $paket['id'];
 
+    $schema_items[] = [
+        '@type' => 'TouristTrip',
+        'name' => $baslik,
+        'url' => $sirket_url . '/tur-detay/' . $id . '/' . $link,
+        'image' => !empty($resim) ? $sirket_url . '/' . $resim : '',
+        'touristType' => 'Umre Yolcusu',
+        'offers' => [
+            '@type' => 'Offer',
+            'price' => $ortak['ikili_oda_fiyatı'] ?? '',
+            'priceCurrency' => ($ortak['para_birimi'] ?? '') === '$' ? 'USD' : (($ortak['para_birimi'] ?? '') === '€' ? 'EUR' : 'TRY'),
+            'availability' => ($ortak['tukendi'] ?? false) ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock'
+        ]
+    ];
+}
 
+$schema_data = [
+    '@context' => 'https://schema.org',
+    '@type' => 'CollectionPage',
+    'name' => $kategori_meta_baslik ?? $kategori_basligi,
+    'description' => $kategori_meta_aciklama,
+    'url' => 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+    'mainEntity' => [
+        '@type' => 'ItemList',
+        'itemListElement' => array_map(function($item, $index) {
+            return [
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                'item' => $item
+            ];
+        }, $schema_items, array_keys($schema_items))
+    ]
+];
 ?>
- 
-
-
+<script type="application/ld+json">
+<?php echo json_encode($schema_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
+</script>
 
 <div class="innerHeading">
   <div class="container">

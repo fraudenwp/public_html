@@ -78,8 +78,6 @@ addUrl(rtrim($sirket_url, '/').'/', date('Y-m-d'), null, '1.0');
 $staticPages = [
     ['kurumsal-detay', '2', 'hakkimizda'],
     ['kurumsal-detay', '3', 'iletisim'],
-    ['turlar', 'umre-turlari'],
-    ['turlar', 'hac-programlari'],
     ['turlar'],
     ['bilgi-sayfalari'],
     ['blok-haber']
@@ -89,6 +87,21 @@ foreach ($staticPages as $parts) {
     $path = implode('/', array_map('enc_segment', $parts));
     $loc  = rtrim($sirket_url, '/') . '/' . $path;
     addUrl($loc, null, null, '0.8');
+}
+
+// Dinamik kategori sayfaları (umre-turlari, hac-programlari vb.)
+try {
+    $kategoriStmt = $pdo->query("SELECT id, veri FROM kategori WHERE yayin_durumu = 1 ORDER BY sira ASC");
+    while ($kategori = $kategoriStmt->fetch(PDO::FETCH_ASSOC)) {
+        $kategoriVeri = json_decode($kategori['veri'], true);
+        if (isset($kategoriVeri[0]['data']['diller']['tr']['link'])) {
+            $kategoriLink = $kategoriVeri[0]['data']['diller']['tr']['link'];
+            $loc = rtrim($sirket_url, '/') . '/turlar/' . enc_segment($kategoriLink);
+            addUrl($loc, date('Y-m-d'), 'weekly', '0.9');
+        }
+    }
+} catch (PDOException $e) {
+    error_log("Kategori sitemap hatası: " . $e->getMessage());
 }
 
 // Dinamik sayfalar
