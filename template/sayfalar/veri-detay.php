@@ -230,7 +230,16 @@ $schema_tur = [
     'provider' => [
         '@type' => 'TravelAgency',
         'name' => $sirket_adi ?? 'Yakut Turizm',
-        'url' => $sirket_url
+        'url' => $sirket_url,
+        'telephone' => '+90 212 524 34 35',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'streetAddress' => 'Atikali Mahallesi Fevzi Paşa Caddesi No:126/6',
+            'addressLocality' => 'Fatih',
+            'addressRegion' => 'İstanbul',
+            'postalCode' => '34083',
+            'addressCountry' => 'TR'
+        ]
     ]
 ];
 ?>

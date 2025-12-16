@@ -133,11 +133,13 @@ try {
         $sayfaData_meta_aciklama = substr(strip_tags($sayfaData_aciklama), 0, 160);
     }
 
-    // Etiketleri string'e çevir
-    $sayfaData_etiketler_string = implode(', ', array_merge($sayfaData_etiketler, ['kurumsal', 'bilgi']));
+    // Etiketleri string'e çevir (boş etiketleri filtrele + SEO anahtar kelimeler)
+    $etiket_dizisi = is_array($sayfaData_etiketler) ? array_filter($sayfaData_etiketler) : [];
+    $seo_keywords = ['umre turları', 'umre turu', 'umre fiyatları', 'hac turları', 'yakut turizm'];
+    $sayfaData_etiketler_string = implode(', ', array_merge($etiket_dizisi, $seo_keywords));
 
-    // Tam URL oluştur
-    $tam_url = $sirket_url . $baseurl_onyuz . '/kurumsal-detay/' . $sayfaData_id . '/' . $sayfaData_link;
+    // Tam URL oluştur (çift slash sorununu önlemek için)
+    $tam_url = 'https://' . $_SERVER['HTTP_HOST'] . '/blok-haber-detay/' . $sayfaData_id . '/' . $sayfaData_link;
 
     // PageData'yı ayarla
     PageData::set(
@@ -358,6 +360,39 @@ function kopyalaMetin(text, button) {
 $input_html = $sayfaData_aciklama;
 $processed_html = processTabloContent($input_html);
 $output_html = $processed_html . $jsCode;
+
+// SEO: "umre turları" kelimelerini otomatik linkle (sadece ilk 2 eşleşme)
+function addUmreLinks($content, $sirket_url) {
+    $umre_link = $sirket_url . '/turlar/umre-turlari';
+
+    // Link eklenecek kelimeler (büyük/küçük harf duyarsız)
+    $keywords = [
+        'umre turları' => '<a href="' . $umre_link . '" title="Umre Turları 2025"><strong>umre turları</strong></a>',
+        'umre turu' => '<a href="' . $umre_link . '" title="Umre Turu 2025"><strong>umre turu</strong></a>',
+        'umre fiyatları' => '<a href="' . $umre_link . '" title="Umre Fiyatları 2025"><strong>umre fiyatları</strong></a>',
+        'umre paketleri' => '<a href="' . $umre_link . '" title="Umre Paketleri 2025"><strong>umre paketleri</strong></a>'
+    ];
+
+    foreach ($keywords as $keyword => $replacement) {
+        // Sadece ilk 2 eşleşmeyi değiştir (spam olmasın)
+        $count = 0;
+        $content = preg_replace_callback(
+            '/(?<![">])(' . preg_quote($keyword, '/') . ')(?![^<]*>|[^<>]*<\/a>)/iu',
+            function($matches) use ($replacement, &$count) {
+                $count++;
+                if ($count <= 2) {
+                    return $replacement;
+                }
+                return $matches[0];
+            },
+            $content
+        );
+    }
+
+    return $content;
+}
+
+$output_html = addUmreLinks($output_html, $sirket_url);
 $sayfaData_aciklama = $output_html;
 
 echo $sayfaData_aciklama;

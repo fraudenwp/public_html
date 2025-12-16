@@ -21,7 +21,9 @@ if ($row) {
             $sayfa_meta_aciklama = substr(strip_tags($tr_data['aciklama'] ?? ''), 0, 160);
         }
 
-        $sayfa_etiketler_string = implode(', ', $sayfa_etiketler);
+        // SEO anahtar kelimeler ekle
+        $seo_keywords = ['umre turları', 'umre turu', 'umre fiyatları', 'hac turları', 'yakut turizm'];
+        $sayfa_etiketler_string = implode(', ', array_merge(array_filter($sayfa_etiketler), $seo_keywords));
         $tam_url = $sirket_url . '/' . $sayfa_link;
 
         // Kısa açıklama için ortak alanları kontrol et

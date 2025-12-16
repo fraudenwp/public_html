@@ -139,11 +139,13 @@ try {
         $sayfaData_meta_aciklama = substr(strip_tags($sayfaData_aciklama), 0, 160);
     }
 
-    // Etiketleri string'e çevir
-    $sayfaData_etiketler_string = implode(', ', array_merge($sayfaData_etiketler, ['kurumsal', 'bilgi']));
+    // Etiketleri string'e çevir (boş etiketleri filtrele + SEO anahtar kelimeler)
+    $etiket_dizisi = is_array($sayfaData_etiketler) ? array_filter($sayfaData_etiketler) : [];
+    $seo_keywords = ['umre turları', 'umre turu', 'umre fiyatları', 'hac turları', 'yakut turizm'];
+    $sayfaData_etiketler_string = implode(', ', array_merge($etiket_dizisi, $seo_keywords));
 
-    // Tam URL oluştur
-    $tam_url = $sirket_url . $baseurl_onyuz . '/kurumsal-detay/' . $sayfaData_id . '/' . $sayfaData_link;
+    // Tam URL oluştur (çift slash sorununu önlemek için)
+    $tam_url = 'https://' . $_SERVER['HTTP_HOST'] . '/kurumsal-detay/' . $sayfaData_id . '/' . $sayfaData_link;
 
     // PageData'yı ayarla
     PageData::set(
