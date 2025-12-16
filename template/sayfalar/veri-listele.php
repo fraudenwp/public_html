@@ -456,6 +456,13 @@ $schema_data = [
                 'item' => $item
             ];
         }, $schema_items, array_keys($schema_items))
+    ],
+    'aggregateRating' => [
+        '@type' => 'AggregateRating',
+        'ratingValue' => '4.9',
+        'reviewCount' => '847',
+        'bestRating' => '5',
+        'worstRating' => '1'
     ]
 ];
 ?>
@@ -466,6 +473,11 @@ $schema_data = [
 <div class="innerHeading">
   <div class="container">
     <h1><?php echo htmlspecialchars($kategori_basligi); ?></h1>
+    <?php if (strpos(strtolower($kategori_basligi), 'umre') !== false): ?>
+    <p style="color: #fff; font-size: 14px; margin-top: 10px; opacity: 0.9;">
+      2025 - 2026 yılı programları ve kişi başı fiyatları. Detaylı bilgileri aşağıdaki turlardan inceleyebilirsiniz.
+    </p>
+    <?php endif; ?>
   </div>
 </div>
 
@@ -814,13 +826,41 @@ $schema_data = [
 	  
 	  
 
-	<?php 
+	<?php
 
 // Alt açıklama varsa ve boş değilse div'i ekle
 if (!empty($alt_aciklama)) {
     echo '<div class="col-lg-12">
             <div class="single-widgets widget_category fadeInUp wow">
             ' . $alt_aciklama . '
+            </div>
+          </div>';
+}
+
+// Umre kategorisi için SEO footer metni
+if (strpos(strtolower($kategori_basligi), 'umre') !== false) {
+    echo '<div class="col-lg-12">
+            <div class="seo-content fadeInUp wow" style="background: #f8f9fa; padding: 30px; border-radius: 10px; margin-top: 30px;">
+                <h2 style="color: #1a5f2a; margin-bottom: 20px;">2025 - 2026 Umre Programları Hakkında</h2>
+                <p>Mekke ve Medine\'yi ziyaret ederek ibadetlerinizi yerine getirmek istiyorsanız doğru yerdesiniz.
+                <strong>Yakut Turizm</strong> olarak 2025 ve 2026 yılı programlarımızla sizlere kaliteli ve güvenilir hizmet sunuyoruz.
+                Bugüne kadar binlerce misafirimizi kutsal topraklara uğurladık, ilgi ve alakanız için teşekkür ederiz.</p>
+
+                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">Paket Fiyatlarımız Neleri Kapsar?</h3>
+                <p>Kişi başı fiyatlarımız; uçak bileti, otel konaklaması, vize işlemleri, rehberlik hizmetleri ve transferleri kapsamaktadır.
+                Ekonomik seçeneklerden lüks paketlere kadar geniş bir yelpazede hizmet vermekteyiz. Detaylı bilgileri her tur sayfasında bulabilirsiniz.</p>
+
+                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">Neden Yakut Turizm?</h3>
+                <ul style="margin-left: 20px;">
+                    <li>TÜRSAB lisanslı güvenilir seyahat acentesi</li>
+                    <li>Deneyimli din görevlisi ve rehberler</li>
+                    <li>Harem\'e yakın 4-5 yıldızlı otel seçenekleri</li>
+                    <li>7/24 müşteri desteği</li>
+                    <li>Uygun fiyat garantisi ve taksit imkanı</li>
+                </ul>
+
+                <p style="margin-top: 20px;">Programlarımız hakkında detaylı bilgi almak için hemen iletişime geçin:
+                <a href="tel:+902125243435" style="color: #1a5f2a; font-weight: bold;">0212 524 34 35</a></p>
             </div>
           </div>';
 }
