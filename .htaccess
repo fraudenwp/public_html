@@ -1,0 +1,35 @@
+RewriteEngine On
+RewriteBase /
+
+# 1️⃣ HTTP → HTTPS yönlendirmesi
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# 2️⃣ www → www’suz yönlendirme
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+
+# 3️⃣ Turlar kategorileri için kural
+RewriteRule ^turlar/([^/]+)/?$ index.php?url=turlar&alt_kategori=$1 [L,QSA]
+RewriteRule ^tur-detay/([0-9]+)/([^/]+)/?$ index.php?url=tur-detay&id=$1&slug=$2 [L,QSA]
+
+# 4️⃣ Kurumsal için kural
+RewriteRule ^kurumsal/([^/]+)/?$ index.php?url=kurumsal&alt_kategori=$1 [L,QSA]
+RewriteRule ^kurumsal-detay/([0-9]+)/([^/]+)/?$ index.php?url=kurumsal-detay&id=$1&slug=$2 [L,QSA]
+
+# 5️⃣ Bilgi sayfalari için kural
+RewriteRule ^bilgi-sayfalari/([^/]+)/?$ index.php?url=bilgi-sayfalari&alt_kategori=$1 [L,QSA]
+RewriteRule ^bilgi-sayfalari-detay/([0-9]+)/([^/]+)/?$ index.php?url=bilgi-sayfalari-detay&id=$1&slug=$2 [L,QSA]
+
+# 6️⃣ Haber Blok sayfalari için kural
+RewriteRule ^blok-haber/([^/]+)/?$ index.php?url=blok-haber&alt_kategori=$1 [L,QSA]
+RewriteRule ^blok-haber-detay/([0-9]+)/([^/]+)/?$ index.php?url=blok-haber-detay&id=$1&slug=$2 [L,QSA]
+
+# 7️⃣ Fiziksel dosya/dizin yoksa index.php’ye yönlendir
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+
+# 8️⃣ Eski URL'yi sorgu parametreleri ile yakala ve yönlendir
+RewriteCond %{QUERY_STRING} kategori%5B%5D=35&turDonemi%5B%5D=4&turDonemi%5B%5D=7
+RewriteRule ^turlar$ /turlar/umre-turlari? [R=301,L]

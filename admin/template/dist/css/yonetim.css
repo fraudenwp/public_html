@@ -1,0 +1,45 @@
+#page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay i {
+  color: #007bff;
+}
+
+
+    .error-message {
+        font-size: 0.8em;
+        margin-top: 5px;
+        color: #dc3545;
+    }
+    .form-control.is-invalid {
+        border-color: #dc3545;
+    }
+    .required-field::after {
+        content: " *";
+        color: #dc3545;
+    }
+	
+	
+#resim-upload-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#resim-upload-area.dragover {
+    background-color: #f0f0f0;
+    border-color: #999;
+}	
+	
+

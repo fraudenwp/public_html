@@ -1,0 +1,38 @@
+[
+    {
+        "id": "1",
+        "kat_id": "0",
+        "baslik": "test",
+        "aciklama": "",
+        "etiketler": "",
+        "meta_baslik": "",
+        "meta_aciklama": "",
+        "yayin_durumu": "1",
+        "link": "",
+        "urun_kodu": "123"
+    },
+    {
+        "id": "2",
+        "kat_id": "75",
+        "baslik": "test",
+        "aciklama": "",
+        "etiketler": "",
+        "meta_baslik": "",
+        "meta_aciklama": "",
+        "yayin_durumu": "0",
+        "link": "",
+        "urun_kodu": null
+    },
+    {
+        "id": "3",
+        "kat_id": "89",
+        "baslik": "test",
+        "aciklama": "",
+        "etiketler": "",
+        "meta_baslik": "",
+        "meta_aciklama": "",
+        "yayin_durumu": "0",
+        "link": "",
+        "urun_kodu": null
+    }
+]

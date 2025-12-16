@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://yakutturizm.com.tr/sitemap.xml
+Sitemap: https://yakutturizm.com.tr/tour-sitemap.xml
