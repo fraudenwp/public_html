@@ -277,9 +277,15 @@ $(document).ready(function() {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // turData tanımlı değilse çık (blog sayfalarında hata vermemesi için)
+    if (typeof turData === 'undefined') return;
+
     var turSuresiSelect = document.getElementById('turSuresi');
     var turDonemiSelect = document.getElementById('turDonemi');
     var otelSelect = document.getElementById('otel');
+
+    // Elementler yoksa çık
+    if (!turSuresiSelect || !turDonemiSelect || !otelSelect) return;
 
     // Tur sürelerini doldur
     Object.entries(turData.turSureleri).forEach(([value, text]) => {
