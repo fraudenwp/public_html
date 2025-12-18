@@ -385,12 +385,19 @@ $selectedTurSureleri = isset($_GET['turSuresi']) ? (array)$_GET['turSuresi'] : [
 $selectedTurDonemleri = isset($_GET['turDonemi']) ? (array)$_GET['turDonemi'] : [];
 $selectedOteller = isset($_GET['otel']) ? (array)$_GET['otel'] : [];
 
-// Etiketleri string'e çevir
-$kategori_etiketler_string = implode(', ', $kategori_etiketler ?? ['Tüm Turlar, Tur listesi, Umre Turları, Hac Turları, Ucuz Umre,']);
+// Etiketleri string'e çevir - SEO için genişletilmiş
+$default_etiketler = [
+    'umre turları', 'umre turları 2025', 'umre turları fiyatları', 'umre turları 2024',
+    'diyanet umre turları', 'ekonomik umre turları', 'lüks umre turları', '5 yıldızlı umre turları',
+    'ankara umre turları', 'istanbul umre turları', 'izmir umre turları', 'bursa umre turları',
+    'en iyi umre turları', 'ucuz umre turları', 'uygun umre turları', 'ramazan umre turları',
+    'hac umre turları', 'vip umre turları', 'kısa umre turları', '3 günlük umre turları fiyatları'
+];
+$kategori_etiketler_string = implode(', ', $kategori_etiketler ?? $default_etiketler);
 
-// Meta açıklama boşsa, varsayılan bir açıklama oluştur
+// Meta açıklama boşsa, varsayılan bir açıklama oluştur - SEO optimize edilmiş
 if (empty($kategori_meta_aciklama)) {
-    $kategori_meta_aciklama = $kategori_basligi . ' için tüm turlarımızı keşfedin. En iyi fiyatlar ve özel teklifler.';
+    $kategori_meta_aciklama = $kategori_basligi . ' 2025-2026 fiyatları ve programları. Ankara, İstanbul, İzmir çıkışlı ekonomik ve lüks umre turları. TÜRSAB lisanslı, en uygun fiyatlar, taksit imkanı.';
 }
 
 // Kategori resmi (eğer varsa)
@@ -456,13 +463,6 @@ $schema_data = [
                 'item' => $item
             ];
         }, $schema_items, array_keys($schema_items))
-    ],
-    'aggregateRating' => [
-        '@type' => 'AggregateRating',
-        'ratingValue' => '4.9',
-        'reviewCount' => '847',
-        'bestRating' => '5',
-        'worstRating' => '1'
     ]
 ];
 ?>
@@ -475,7 +475,7 @@ $schema_data = [
     <h1><?php echo htmlspecialchars($kategori_basligi); ?></h1>
     <?php if (strpos(strtolower($kategori_basligi), 'umre') !== false): ?>
     <p style="color: #fff; font-size: 14px; margin-top: 10px; opacity: 0.9;">
-      2025 - 2026 yılı programları ve kişi başı fiyatları. Detaylı bilgileri aşağıdaki turlardan inceleyebilirsiniz.
+      2025 - 2026 yılı umre turları programları ve kişi başı fiyatları. Ankara, İstanbul, İzmir, Bursa çıkışlı ekonomik ve lüks paketler. Detaylı bilgileri aşağıdaki turlardan inceleyebilirsiniz.
     </p>
     <?php endif; ?>
   </div>
@@ -691,7 +691,8 @@ $schema_data = [
 	  
 <form action="<?php echo $baseurl_onyuz .'turlar'; ?>" method="GET" class="mobile-hide">
   <div class="sidebar_form card card-body wow fadeInUp">
-  <h4>Umre Turu Filtrele</h4>
+  <h4>Umre Turları Filtrele</h4>
+  <p style="font-size: 12px; color: #666; margin-bottom: 15px;">2025 umre turları için uygun paketi bulun</p>
     <div class="advanceWrp faqs"> 
 			<?php
 			// Kategorileri döngüye almadan önce
@@ -841,26 +842,40 @@ if (!empty($alt_aciklama)) {
 if (strpos(strtolower($kategori_basligi), 'umre') !== false) {
     echo '<div class="col-lg-12">
             <div class="seo-content fadeInUp wow" style="background: #f8f9fa; padding: 30px; border-radius: 10px; margin-top: 30px;">
-                <h2 style="color: #1a5f2a; margin-bottom: 20px;">2025 - 2026 Umre Programları Hakkında</h2>
+                <h2 style="color: #1a5f2a; margin-bottom: 20px;">2025 - 2026 Umre Turları Fiyatları ve Programları</h2>
                 <p>Mekke ve Medine\'yi ziyaret ederek ibadetlerinizi yerine getirmek istiyorsanız doğru yerdesiniz.
-                <strong>Yakut Turizm</strong> olarak 2025 ve 2026 yılı programlarımızla sizlere kaliteli ve güvenilir hizmet sunuyoruz.
-                Bugüne kadar binlerce misafirimizi kutsal topraklara uğurladık, ilgi ve alakanız için teşekkür ederiz.</p>
+                <strong>Yakut Turizm</strong> olarak 2023, 2024, 2025 ve 2026 yılı umre turları programlarımızla sizlere kaliteli ve güvenilir hizmet sunuyoruz.
+                İstanbul, Ankara, İzmir, Bursa, Konya, Antalya, Gaziantep, Kayseri ve tüm Türkiye\'den umre turları düzenliyoruz.</p>
 
-                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">Paket Fiyatlarımız Neleri Kapsar?</h3>
-                <p>Kişi başı fiyatlarımız; uçak bileti, otel konaklaması, vize işlemleri, rehberlik hizmetleri ve transferleri kapsamaktadır.
-                Ekonomik seçeneklerden lüks paketlere kadar geniş bir yelpazede hizmet vermekteyiz. Detaylı bilgileri her tur sayfasında bulabilirsiniz.</p>
+                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">Umre Turları Fiyatları 2025 - Kişi Başı Uygun Fiyatlar</h3>
+                <p>2025 umre turları fiyatlarımız; ekonomik umre turlarından 5 yıldızlı lüks umre turlarına kadar geniş bir seçenek sunmaktadır.
+                3 günlük umre turları, 7 günlük umre turları, 10 günlük ve 15 günlük paketlerimiz mevcuttur.
+                Kişi başı fiyatlarımız; uçak bileti, 4-5 yıldızlı otel konaklaması, vize işlemleri, rehberlik hizmetleri ve transferleri kapsamaktadır.
+                Ramazan umre turları, Ağustos umre turları ve Şevval ayı umre turları için özel fiyatlarımız bulunmaktadır.</p>
 
-                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">Neden Yakut Turizm?</h3>
+                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">Şehir Çıkışlı Umre Programları</h3>
+                <p>Ankara çıkışlı umre turları, İzmir çıkışlı umre turları, İstanbul umre turları, Bursa umre turları, Konya umre turları,
+                Antalya, Adana, Gaziantep, Trabzon, Kayseri, Denizli, Diyarbakır, Sivas ve diğer şehirlerden umre turları düzenliyoruz.
+                Diyanet umre turları işbirliğimizle güvenilir ve ekonomik umre paketleri sunuyoruz.</p>
+
+                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">En İyi Umre Turları - Neden Yakut Turizm?</h3>
                 <ul style="margin-left: 20px;">
-                    <li>TÜRSAB lisanslı güvenilir seyahat acentesi</li>
-                    <li>Deneyimli din görevlisi ve rehberler</li>
-                    <li>Harem\'e yakın 4-5 yıldızlı otel seçenekleri</li>
+                    <li>TÜRSAB lisanslı güvenilir seyahat acentesi - Umre ve hac turları uzmanı</li>
+                    <li>En ucuz umre turları fiyat garantisi ve taksit imkanı</li>
+                    <li>Deneyimli din görevlisi ve profesyonel rehberler</li>
+                    <li>Harem\'e yakın 4-5 yıldızlı otel seçenekleri, VIP ve lüks paketler</li>
+                    <li>Kısa süreli umre turları ve uzun süreli programlar</li>
                     <li>7/24 müşteri desteği</li>
-                    <li>Uygun fiyat garantisi ve taksit imkanı</li>
+                    <li>Binlerce memnun misafir yorumları</li>
                 </ul>
 
-                <p style="margin-top: 20px;">Programlarımız hakkında detaylı bilgi almak için hemen iletişime geçin:
-                <a href="tel:+902125243435" style="color: #1a5f2a; font-weight: bold;">0212 524 34 35</a></p>
+                <h3 style="color: #1a5f2a; margin-top: 20px; font-size: 18px;">Umre Turları Hakkında Bilgi</h3>
+                <p>Uygun fiyatlı umre turları arıyorsanız, kısa süreli 3 günlük umre turları fiyatları veya lüx umre turları seçeneklerimizi inceleyebilirsiniz.
+                2025 yılı umre turları için erken rezervasyon fırsatlarından yararlanın. En iyi umre turları yorumları için referanslarımıza göz atın.</p>
+
+                <p style="margin-top: 20px;"><strong>Umre turları 2025 fiyatları ve detaylı bilgi için hemen iletişime geçin:</strong><br>
+                <a href="tel:+902125243435" style="color: #1a5f2a; font-weight: bold;">0212 524 34 35</a><br>
+                <small>Ankara, İstanbul, İzmir, Bursa, Konya ve tüm Türkiye\'den umre turları</small></p>
             </div>
           </div>';
 }
